@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Attendify | AI Smart Attendance Platform</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <script>
+
+        if(!localStorage.getItem("userRole"))
+        {
+
+        window.location="login.html";
+
+        }
+
+    </script>
+
+<div class="app">
+
+    <!-- ===================== SIDEBAR ===================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-brain"></i>
+
+            <h2>Attendify</h2>
+
+            <p>Predict. Prevent. Improve.</p>
+
+        </div>
+
+        <ul class="menu">
+
+
+            <li class="active"
+            onclick="location.href='index.html'">
+
+            <i class="fa-solid fa-house"></i>
+
+            Dashboard
+
+            </li>
+
+
+
+            <li
+            onclick="location.href='profile.html'">
+
+            <i class="fa-solid fa-user-graduate"></i>
+
+            Student Profile
+
+            </li>
+
+
+
+
+            <li
+            onclick="location.href='attendance.html'">
+
+            <i class="fa-solid fa-calendar-check"></i>
+
+            Mark Attendance
+
+            </li>
+
+
+
+
+            <li>
+
+            <i class="fa-solid fa-robot"></i>
+
+            AI Assistant
+
+            </li>
+
+
+
+
+            <li>
+
+            <i class="fa-solid fa-bell"></i>
+
+            Alerts
+
+            </li>
+
+
+
+            <li>
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            Analytics
+
+            </li>
+
+
+
+            <li>
+
+            <i class="fa-solid fa-file-lines"></i>
+
+            Reports
+
+            </li>
+
+
+
+            <li>
+
+            <i class="fa-solid fa-gear"></i>
+
+            Settings
+
+            </li>
+
+
+        </ul>
+
+        <div class="sidebar-footer">
+
+
+            <span class="online"></span>
+
+            System Online
+
+
+            <br><br>
+
+
+            <button 
+            onclick="logout()"
+            class="btn btn-danger">
+
+            Logout
+
+            </button>
+
+
+        </div>
+
+    </aside>
+
+    <!-- ===================== MAIN CONTENT ===================== -->
+
+    <main class="main-content">
+
+        <!-- ===================== TOP BAR ===================== -->
+
+        <div class="topbar">
+
+            <div>
+
+                <h2>Welcome Back, HoD 👋</h2>
+
+                <p>AI-Powered Smart Attendance Intelligence Platform</p>
+
+            </div>
+
+            <div class="top-icons">
+
+                <i class="fa-solid fa-bell"></i>
+
+                <i class="fa-solid fa-user-circle"></i>
+
+            </div>
+
+        </div>
+
+        <!-- ===================== KPI CARDS ===================== -->
+
+        <div class="row g-4 mt-3">
+
+            <div class="col-lg-3">
+
+                <div class="stat-card">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    <h3>320</h3>
+
+                    <p>Total Students</p>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3">
+
+                <div class="stat-card">
+
+                    <i class="fa-solid fa-chart-column"></i>
+
+                    <h3>82%</h3>
+
+                    <p>Average Attendance</p>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3">
+
+                <div class="stat-card">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    <h3>18</h3>
+
+                    <p>Students At Risk</p>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3">
+
+                <div class="stat-card">
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                    <h3>127</h3>
+
+                    <p>Alerts Sent</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================== ANALYTICS ===================== -->
+
+        <div class="row mt-4">
+
+            <!-- Attendance Chart -->
+
+            <div class="col-lg-8">
+
+                <div class="chart-card">
+
+                    <div class="card-header-custom">
+
+                        <h4>
+
+                            <i class="fa-solid fa-chart-line"></i>
+
+                            Attendance Trend
+
+                        </h4>
+
+                        <span class="badge bg-primary">
+
+                            LIVE
+
+                        </span>
+
+                    </div>
+
+                    <canvas id="attendanceChart"></canvas>
+
+                </div>
+
+            </div>
+
+            <!-- AI Insights -->
+
+            <div class="col-lg-4">
+
+                <div class="ai-card">
+
+                    <h4>
+
+                        🤖 AI Insights
+
+                    </h4>
+
+                    <hr>
+
+                    <div class="insight">
+
+                        ✅ Overall attendance increased by <b>3%</b> this week.
+
+                    </div>
+
+                    <div class="insight">
+
+                        ⚠ Data Structures has the highest absentee rate.
+
+                    </div>
+
+                    <div class="insight">
+
+                        📧 12 parent notifications generated today.
+
+                    </div>
+
+                    <div class="insight">
+
+                        🔥 18 students crossed the risk threshold.
+
+                    </div>
+
+                    <button class="btn btn-light w-100 mt-3">
+
+                        View AI Summary
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================== SECOND ROW ===================== -->
+
+        <div class="row mt-4">
+
+            <!-- Risk Distribution -->
+
+            <div class="col-lg-5">
+
+                <div class="chart-card">
+
+                    <div class="card-header-custom">
+
+                        <h4>
+
+                            <i class="fa-solid fa-chart-pie"></i>
+
+                            Risk Distribution
+
+                        </h4>
+
+                    </div>
+
+                    <canvas id="riskChart"></canvas>
+
+                </div>
+
+            </div>
+
+            <!-- Weekly Summary -->
+
+            <div class="col-lg-7">
+
+                <div class="summary-card">
+
+                    <h4>
+
+                        📊 Weekly Attendance Summary
+
+                    </h4>
+
+                    <hr>
+
+                    <div class="summary-item">
+
+                        <span>Total Classes Conducted</span>
+
+                        <strong>154</strong>
+
+                    </div>
+
+                    <div class="summary-item">
+
+                        <span>Average Attendance</span>
+
+                        <strong>82%</strong>
+
+                    </div>
+
+                    <div class="summary-item">
+
+                        <span>Students At Risk</span>
+
+                        <strong class="text-danger">18</strong>
+
+                    </div>
+
+                    <div class="summary-item">
+
+                        <span>Parent Notifications</span>
+
+                        <strong>127</strong>
+
+                    </div>
+
+                    <div class="summary-item">
+
+                        <span>Recovery Plans Generated</span>
+
+                        <strong>34</strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================== STUDENT SEARCH ===================== -->
+
+        <div class="row mt-4">
+
+            <div class="col-lg-12">
+
+                <div class="chart-card">
+
+                    <h3>
+
+                        🔍 Smart Student Search
+
+                    </h3>
+
+                    <div class="row mt-4">
+
+                        <div class="col-md-10">
+
+                            <input
+                                id="searchInput"
+                                class="form-control"
+                                placeholder="Enter Student ID (Example: 21AD045)">
+
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <button
+                                class="btn btn-primary w-100"
+                                onclick="searchStudent()">
+
+                                Search
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+            <!-- ===================== STUDENT DETAILS ===================== -->
+
+        <div class="row mt-4">
+
+            <div class="col-lg-12">
+
+                <div id="studentCard" class="chart-card">
+
+                    <h3 class="text-center text-muted">
+
+                        Search a student to view AI analysis
+
+                    </h3>
+
+                    <p class="text-center text-muted">
+
+                        Try searching for <b>21AD045</b>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================== GEMINI AI ===================== -->
+
+        <div class="row mt-4">
+
+            <div class="col-lg-12">
+
+                <div class="chart-card">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <h3>
+
+                            🤖 Attendify AI Engine
+
+                        </h3>
+
+                        <button
+
+                            id="generateAIBtn"
+
+                            class="btn btn-primary">
+
+                            Generate AI Analysis
+
+                        </button>
+
+                    </div>
+
+                    <div
+
+                        id="aiResponse"
+
+                        class="mt-4">
+
+                        <p class="text-muted">
+
+                            Search for a student and click
+
+                            <b>Generate AI Analysis</b>
+
+                            to receive an AI-generated recommendation.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================== RECENT ALERTS ===================== -->
+
+        <div class="row mt-4">
+
+            <div class="col-lg-12">
+
+                <div class="chart-card">
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+
+                        <h3>
+
+                            🚨 Recent Alerts
+
+                        </h3>
+
+                        <span class="badge bg-danger">
+
+                            LIVE
+
+                        </span>
+
+                    </div>
+
+                    <table class="table table-hover">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Student ID</th>
+
+                                <th>Name</th>
+
+                                <th>Subject</th>
+
+                                <th>Attendance</th>
+
+                                <th>Risk</th>
+
+                                <th>Status</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>21AD045</td>
+
+                                <td>Harsha Vardhana Raj</td>
+
+                                <td>Data Structures</td>
+
+                                <td>71.2%</td>
+
+                                <td>
+
+                                    <span class="badge bg-danger">
+
+                                        HIGH
+
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    Parent Notified
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>21AD032</td>
+
+                                <td>Rahul</td>
+
+                                <td>Operating Systems</td>
+
+                                <td>74%</td>
+
+                                <td>
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        WARNING
+
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    Recovery Generated
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>21AD081</td>
+
+                                <td>Keerthana</td>
+
+                                <td>Artificial Intelligence</td>
+
+                                <td>92%</td>
+
+                                <td>
+
+                                    <span class="badge bg-success">
+
+                                        SAFE
+
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    Normal
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================== FOOTER ===================== -->
+
+        <footer class="text-center mt-5 mb-3">
+
+            <hr>
+
+            <p>
+
+                <strong>Attendify</strong>
+
+                • AI-Powered Smart Attendance Intelligence Platform
+
+            </p>
+
+            <p>
+
+                Smart Campus AI Hackathon Project • 2026
+
+            </p>
+
+        </footer>
+
+    </main>
+
+</div>
+
+<!-- Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Student Data -->
+
+<script src="students.js"></script>
+
+<!-- AI Model -->
+
+<script src="ai-model.js"></script>
+
+<!-- Custom JS -->
+
+<script src="script.js"></script>
+
+
+<script>
+
+    function logout(){
+
+    localStorage.clear();
+
+    window.location="login.html";
+
+    }
+
+</script>
+
+</body>
+
+</html>
