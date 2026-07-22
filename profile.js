@@ -1,39 +1,143 @@
-let id =
-localStorage.getItem("studentID")
-|| 
-"21AD045";
+let id = "21AD045";
 
 
-let student=students[id];
+let student = students[id];
 
 
-document.getElementById("profile").innerHTML=`
+
+let riskClass;
+
+
+if(student.risk=="HIGH")
+{
+    riskClass="danger";
+}
+
+else if(student.risk=="WARNING")
+{
+    riskClass="warning";
+}
+
+else
+{
+    riskClass="success";
+}
+
+
+
+
+document.getElementById("profile").innerHTML = `
+
+
+<div class="row g-4 mt-3">
+
+
+<div class="col-md-4">
+
+
+<div class="stat-card">
+
+
+<i class="fa-solid fa-user-graduate"></i>
+
 
 <h3>
+
 ${student.name}
+
 </h3>
 
 
 <p>
-Department:
+
 ${student.department}
+
 </p>
 
 
-<h1>
-${student.attendance.overall}%
-</h1>
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="col-md-4">
+
+
+<div class="stat-card">
+
+
+<i class="fa-solid fa-chart-line"></i>
 
 
 <h3>
 
-Risk:
+${student.attendance.overall}%
 
-<span>
+</h3>
+
+
+<p>
+
+Overall Attendance
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="col-md-4">
+
+
+<div class="stat-card">
+
+
+<i class="fa-solid fa-triangle-exclamation"></i>
+
+
+<h3 class="text-${riskClass}">
 
 ${student.risk}
 
-</span>
+</h3>
+
+
+<p>
+
+AI Risk Prediction
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="chart-card mt-4">
+
+
+<h3>
+
+🤖 AI Attendance Analysis
 
 </h3>
 
@@ -41,44 +145,199 @@ ${student.risk}
 <hr>
 
 
-<h3>
-AI Prediction
-</h3>
-
-
 <p>
 
-Attendance shortage probability:
-
-<b>
-
-${student.attendance.overall<75?"82%":"15%"}
-
-</b>
+Based on your attendance pattern, AI predicts:
 
 </p>
 
 
+
 <h4>
-Recommendation
+
+${student.risk=="HIGH"
+
+?
+
+"⚠ High probability of attendance shortage"
+
+:
+
+"✅ Attendance is under control"
+
+}
+
 </h4>
 
 
+
+<br>
+
+
+<h5>
+
+Recommended Actions
+
+</h5>
+
+
 <ul>
+
 
 <li>
 Attend upcoming classes regularly
 </li>
 
-<li>
-Focus on weak subjects
-</li>
 
 <li>
-Follow recovery timetable
+Improve weak subjects
+</li>
+
+
+<li>
+Avoid consecutive absences
 </li>
 
 
 </ul>
 
+
+
+</div>
+
+
+
+
+
+
+
+<div class="chart-card mt-4">
+
+
+<h3>
+
+📚 Subject Performance
+
+</h3>
+
+
+
+${
+
+student.subjects.map(sub=>`
+
+
+<div class="mt-3">
+
+
+<b>
+
+${sub.name}
+
+</b>
+
+
+<div class="progress">
+
+
+<div
+
+class="progress-bar bg-primary"
+
+style="width:${sub.attendance}%">
+
+</div>
+
+
+</div>
+
+
+<span>
+
+${sub.attendance}%
+
+</span>
+
+
+</div>
+
+
+
+`).join("")
+
+
+}
+
+
+</div>
+
+
+
 `;
+
+
+
+
+
+new Chart(
+
+document.getElementById("studentChart"),
+
+{
+
+
+type:"line",
+
+
+data:{
+
+
+labels:[
+
+"Week 1",
+"Week 2",
+"Week 3",
+"Week 4",
+"Week 5"
+
+],
+
+
+datasets:[{
+
+label:"Attendance %",
+
+data:[
+
+82,
+78,
+76,
+73,
+student.attendance.overall
+
+],
+
+
+borderWidth:3,
+
+tension:.4
+
+}]
+
+
+},
+
+
+options:{
+
+
+responsive:true
+
+
+}
+
+
+
+}
+
+);
