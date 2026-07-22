@@ -493,3 +493,45 @@ canvas{
     background:#EEF2FF;
 
 }
+
+.student-profile-card{
+
+background:white;
+
+border-radius:20px;
+
+padding:25px;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.08);
+
+}
+
+
+.stat-card h3{
+
+font-size:28px;
+
+}
+
+
+
+.text-danger{
+
+color:#dc2626!important;
+
+}
+
+
+.text-warning{
+
+color:#d97706!important;
+
+}
+
+
+.text-success{
+
+color:#16a34a!important;
+
+}
