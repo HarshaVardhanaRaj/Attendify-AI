@@ -2,12 +2,13 @@
 
 <html>
 
-
 <head>
 
-<title>Student Profile</title>
+<title>Attendify | Student Portal</title>
 
 <link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
@@ -18,15 +19,30 @@
 <div class="main-content">
 
 
-<div class="chart-card">
+<div class="topbar">
 
+<div>
 
 <h2>
-👨‍🎓 Student Profile
+Welcome Back 👋
 </h2>
 
+<p>
+Your AI Attendance Companion
+</p>
 
-<hr>
+</div>
+
+
+<div>
+
+<i class="fa-solid fa-user-circle fa-2x"></i>
+
+</div>
+
+
+</div>
+
 
 
 <div id="profile">
@@ -35,10 +51,23 @@
 </div>
 
 
-</div>
+<div class="chart-card mt-4">
+
+
+<h3>
+📈 Attendance Trend
+</h3>
+
+
+<canvas id="studentChart"></canvas>
 
 
 </div>
+
+
+
+</div>
+
 
 
 <script src="students.js"></script>
@@ -47,6 +76,5 @@
 
 
 </body>
-
 
 </html>
